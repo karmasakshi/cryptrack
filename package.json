@@ -2,16 +2,16 @@
   "name": "cryptrack",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npx --no-install -- next dev",
-    "build": "npx --no-install -- next build",
-    "start": "npx --no-install -- next start",
-    "lint": "npx --no-install -- next lint",
-    "format": "npx --no-install -- prettier --write .",
-    "prepare": "npx --no-install -- husky",
-    "format-staged": "npx --no-install -- lint-staged"
+    "dev": "npx --no -- next dev",
+    "build": "npx --no -- next build",
+    "start": "npx --no -- next start",
+    "lint": "npx --no -- next lint",
+    "format": "npx --no -- prettier --write .",
+    "prepare": "npx --no -- husky",
+    "format-staged": "npx --no -- lint-staged"
   },
   "lint-staged": {
-    "*": "npx --no-install -- prettier --ignore-unknown --write"
+    "*": "npx --no -- prettier --ignore-unknown --write"
   },
   "dependencies": {
     "next": "^14.2.15",
