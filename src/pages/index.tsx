@@ -1,3 +1,9 @@
-export default function Page() {
-  return <h1>Hello, Next.js!</h1>;
-}
+const Dashboard = () => {
+  return (
+    <div>
+      <h1>Portfolio Summary</h1>
+    </div>
+  );
+};
+
+export default Dashboard;
