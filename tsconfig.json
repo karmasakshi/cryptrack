@@ -15,7 +15,8 @@
     "baseUrl": "./",
     "paths": {
       "@cryptack/interfaces/*": ["src/interfaces/*"],
-      "@cryptack/pages/*": ["src/pages/*"]
+      "@cryptack/pages/*": ["src/pages/*"],
+      "@cryptack/store/*": ["src/stores/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
