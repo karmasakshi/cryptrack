@@ -14,6 +14,7 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
+      "@cryptack/apis/*": ["src/apis/*"],
       "@cryptack/interfaces/*": ["src/interfaces/*"],
       "@cryptack/pages/*": ["src/pages/*"],
       "@cryptack/store/*": ["src/stores/*"]
