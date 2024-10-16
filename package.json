@@ -5,7 +5,8 @@
     "dev": "npx --no-install -- next dev",
     "build": "npx --no-install -- next build",
     "start": "npx --no-install -- next start",
-    "lint": "npx --no-install -- next lint"
+    "lint": "npx --no-install -- next lint",
+    "format": "npx --no-install -- prettier --write ."
   },
   "dependencies": {
     "next": "^14.2.15",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@types/node": "22.7.5",
     "@types/react": "18.3.11",
+    "prettier": "^3.3.3",
     "typescript": "5.6.3"
   }
 }
