@@ -2,12 +2,12 @@
   "name": "cryptrack",
   "version": "0.0.0",
   "scripts": {
+    "prepare": "npx --no -- husky",
     "dev": "npx --no -- next dev",
     "build": "npx --no -- next build",
     "start": "npx --no -- next start",
     "lint": "npx --no -- next lint",
     "format": "npx --no -- prettier --write .",
-    "prepare": "npx --no -- husky",
     "format-staged": "npx --no -- lint-staged"
   },
   "lint-staged": {
