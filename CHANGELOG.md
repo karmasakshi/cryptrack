@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0](https://github.com/karmasakshi/cryptrack/compare/v1.0.0...v1.1.0) (2024-10-17)
+
+
+### Features
+
+* **general:** add bootstrap ([f7398a7](https://github.com/karmasakshi/cryptrack/commit/f7398a77cace077840af57d83a320d95c77d1f42))
+* **general:** add holding card component ([6b132c4](https://github.com/karmasakshi/cryptrack/commit/6b132c4f0f7caba73f410c314939ce4e95b9b86e))
+* **general:** add layout component ([55d6045](https://github.com/karmasakshi/cryptrack/commit/55d6045c407d5e7d4861e2207daefdab9c8bb7a4))
+* **general:** add page titles ([b4dd408](https://github.com/karmasakshi/cryptrack/commit/b4dd4085c1a88775f0d9671b596e44b0d7f2bfa9))
+
 ## 1.0.0 (2024-10-16)
 
 
