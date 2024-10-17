@@ -65,13 +65,14 @@ const Holdings = () => {
             <div className="card-body text-center">
               <Image src="/empty.svg" height={240} width={240} alt="Empty" />
               <h5>No holdings to display.</h5>
-              <Link
-                href="/add-holding"
-                type="button"
-                className="btn btn-primary mt-4"
-              >
-                Add Holding
-              </Link>
+              <div className="mt-4">
+                <Link href="/add-holding" className="btn btn-primary me-2">
+                  Add Holding
+                </Link>
+                <button type="button" className="btn btn-primary">
+                  Clear Filters
+                </button>
+              </div>
             </div>
           </div>
         )}

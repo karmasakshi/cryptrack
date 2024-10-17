@@ -56,16 +56,16 @@ const HoldingCard = ({
         <div className="mt-4">
           <Link
             href={`/holdings/${holding.cryptocurrency.symbol}`}
-            className="btn btn-sm btn-primary"
+            className="btn btn-sm btn-primary me-2"
           >
             View Details
           </Link>
-          <button type="button" className="btn btn-sm btn-warning ms-2">
+          <button type="button" className="btn btn-sm btn-warning me-2">
             Edit
           </button>
           <button
             type="button"
-            className="btn btn-sm btn-danger ms-2"
+            className="btn btn-sm btn-danger"
             onClick={() => removeHolding(holding.cryptocurrency.symbol)}
           >
             Remove
