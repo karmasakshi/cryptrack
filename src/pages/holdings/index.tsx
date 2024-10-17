@@ -7,11 +7,11 @@ const Holdings = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const filteredPortfolio = portfolio.holdings
-    .filter((cryptocurrency) =>
-      cryptocurrency.name.toLowerCase().includes(search.toLowerCase()),
+    .filter((h) =>
+      h.cryptocurrency.name.toLowerCase().includes(search.toLowerCase()),
     )
     .sort((a, b) =>
-      sortOrder === 'asc' ? a.price - b.price : b.price - a.price,
+      sortOrder === 'asc' ? a.value - b.value : b.value - a.value,
     );
 
   return (
@@ -29,10 +29,10 @@ const Holdings = () => {
         Sort by Price ({sortOrder})
       </button>
       <ul>
-        {filteredPortfolio.map((cryptocurrency) => (
-          <li key={cryptocurrency.symbol}>
-            {cryptocurrency.name} - {cryptocurrency.price} units @ USD{' '}
-            {cryptocurrency.price} each
+        {filteredPortfolio.map((h) => (
+          <li key={h.cryptocurrency.symbol}>
+            {h.cryptocurrency.name} ({h.cryptocurrency.symbol}) - {h.quantity}{' '}
+            units @ USD{h.averageCost} each
           </li>
         ))}
       </ul>
