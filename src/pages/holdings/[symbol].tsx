@@ -1,6 +1,7 @@
 import { getHistoricalData } from '@cryptack/apis/cryptocompare';
 import { Cryptocurrency } from '@cryptack/interfaces/cryptocurrency';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -24,7 +25,10 @@ const Holding = () => {
     return <div>Cryptocurrency not found.</div>;
   } else {
     return (
-      <div>
+      <>
+        <Head>
+          <title>{cryptocurrency.symbol.toUpperCase()}</title>
+        </Head>
         <h1>{cryptocurrency.name} Details</h1>
         <p>Current Price: {cryptocurrency.currentPrice}</p>
         <h2>Historical Prices</h2>
@@ -33,7 +37,7 @@ const Holding = () => {
             <li key={index}>{data}</li>
           ))}
         </ul>
-      </div>
+      </>
     );
   }
 };

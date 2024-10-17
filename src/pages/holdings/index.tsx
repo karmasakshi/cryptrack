@@ -1,4 +1,5 @@
 import { usePortfolioStore } from '@cryptack/store/portfolio';
+import Head from 'next/head';
 import { useState } from 'react';
 
 const Holdings = () => {
@@ -15,7 +16,10 @@ const Holdings = () => {
     );
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>Holdings</title>
+      </Head>
       <h1>Holdings</h1>
       <input
         type="text"
@@ -36,7 +40,7 @@ const Holdings = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

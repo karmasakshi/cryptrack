@@ -1,5 +1,6 @@
 import { getCryptocurrencyPrice } from '@cryptack/apis/cryptocompare';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
+import Head from 'next/head';
 import React, { useState } from 'react';
 
 const AddHolding = () => {
@@ -50,7 +51,10 @@ const AddHolding = () => {
   };
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>Add Holding</title>
+      </Head>
       <h1>Add Cryptocurrency</h1>
       <form onSubmit={handleAddHolding}>
         <div>
@@ -96,7 +100,7 @@ const AddHolding = () => {
           {loading ? 'Adding...' : 'Add Holding'}
         </button>
       </form>
-    </div>
+    </>
   );
 };
 
