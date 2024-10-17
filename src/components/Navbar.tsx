@@ -11,7 +11,7 @@ const Navbar = () => {
   }, [router.pathname]);
 
   return (
-    <nav className="navbar navbar-expand-md bg-body-secondary">
+    <nav className="navbar sticky-top navbar-expand-md bg-body-secondary">
       <div className="container-fluid">
         <Link className="navbar-brand" href="/">
           Cryptrack

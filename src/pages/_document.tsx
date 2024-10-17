@@ -18,7 +18,16 @@ export default function Document() {
           strategy="afterInteractive"
         />
       </Head>
-      <body className="bg-body-tertiary">
+      <body
+        className="bg-body-tertiary"
+        style={{
+          backgroundImage: "url('background.svg')",
+          backgroundPosition: '0 56px',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
+        }}
+      >
         <Main />
         <NextScript />
       </body>

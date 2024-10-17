@@ -16,7 +16,7 @@ const HoldingCard = ({
   return (
     <div className="card shadow-sm border-0">
       <div className="card-body">
-        <div className="d-flex align-items-center">
+        <h5 className="card-title d-flex align-items-center">
           <Image
             className="me-2 rounded bg-body-tertiary p-1"
             alt={holding.cryptocurrency.name}
@@ -24,26 +24,28 @@ const HoldingCard = ({
             width={32}
             src={holding.cryptocurrency.logoUrl || 'https://placehold.co/32x32'}
           />
-          <h5 className="card-title m-0">
-            {holding.cryptocurrency.name} (
-            {holding.cryptocurrency.symbol.toUpperCase()})
-          </h5>
-        </div>
-        <div className="mt-2">
-          <div>
-            <strong>Quantity:</strong> {holding.quantity}
-          </div>
-          <div>
-            <strong>Current Price:</strong> $
-            {holding.cryptocurrency.currentPrice}
-          </div>
-          <div>
-            <strong>Total Value:</strong> ${holding.value}
-          </div>
-          <div className={`${profit >= 0 ? 'text-success' : 'text-danger'}`}>
-            <strong>Profit:</strong> ${profit}
-          </div>
-        </div>
+          {holding.cryptocurrency.name} (
+          {holding.cryptocurrency.symbol.toUpperCase()})
+        </h5>
+        <p className="m-0">
+          <strong>Quantity:</strong>
+          <pre className="d-inline"> {holding.quantity}</pre>
+        </p>
+        <p className="m-0">
+          <strong>Current Price:</strong>
+          <pre className="d-inline">
+            {' '}
+            ${holding.cryptocurrency.currentPrice}
+          </pre>
+        </p>
+        <p className="m-0">
+          <strong>Total Value:</strong>
+          <pre className="d-inline"> ${holding.value}</pre>
+        </p>
+        <p className={`m-0 ${profit >= 0 ? 'text-success' : 'text-danger'}`}>
+          <strong>Profit:</strong>
+          <pre className="d-inline"> ${profit}</pre>
+        </p>
         <div className="mt-4">
           <Link
             href={`/holdings/${holding.cryptocurrency.symbol}`}
