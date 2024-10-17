@@ -18,7 +18,7 @@ export default function Document() {
           strategy="afterInteractive"
         />
       </Head>
-      <body>
+      <body className="bg-body-tertiary">
         <Main />
         <NextScript />
       </body>
