@@ -10,9 +10,9 @@ const Holding = () => {
   const { portfolio } = usePortfolioStore();
   const [historicalData, setHistoricalData] = useState([]);
 
-  const cryptocurrency: Cryptocurrency = portfolio.holdings.find(
+  const cryptocurrency: Cryptocurrency | undefined = portfolio.holdings.find(
     (h) => h.cryptocurrency.symbol === symbol,
-  ).cryptocurrency;
+  )?.cryptocurrency;
 
   useEffect(() => {
     if (cryptocurrency) {
@@ -30,10 +30,7 @@ const Holding = () => {
         <h2>Historical Prices</h2>
         <ul>
           {historicalData.map((data, index) => (
-            <li key={index}>
-              Date: {new Date(data.time * 1000).toLocaleDateString()}, Price: $
-              {data.close}
-            </li>
+            <li key={index}>{data}</li>
           ))}
         </ul>
       </div>
