@@ -18,7 +18,6 @@
       "@cryptack/components/*": ["src/components/*"],
       "@cryptack/interfaces/*": ["src/interfaces/*"],
       "@cryptack/pages/*": ["src/pages/*"],
-      "@cryptack/seed/*": ["src/seed/*"],
       "@cryptack/store/*": ["src/stores/*"]
     }
   },

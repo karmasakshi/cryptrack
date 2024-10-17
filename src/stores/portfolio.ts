@@ -9,7 +9,6 @@ type PortfolioStoreState = { portfolio: Portfolio };
 type PortfolioStoreActions = {
   addHolding: (cryptocurrency: Cryptocurrency, quantity: number) => void;
   removeHolding: (cryptocurrencySymbol: string) => void;
-  setPortfolio: (portfolio: Portfolio) => void;
   updateHolding: (
     cryptocurrency: Cryptocurrency,
     quantity: number,
@@ -26,7 +25,6 @@ export const usePortfolioStore = create<PortfolioStore>()(
         value: 0,
         holdings: [],
       },
-      setPortfolio: (portfolio) => set(() => ({ portfolio })),
       addHolding: (cryptocurrency, quantity) =>
         set((state) => {
           const existingHolding = state.portfolio.holdings.find(
