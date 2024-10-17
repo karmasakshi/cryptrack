@@ -1,6 +1,6 @@
-import { Cryptocurrency } from './cryptocurrency';
+import { Holding } from './holding';
 
 export interface Portfolio {
-  holdings: Cryptocurrency[];
+  holdings: Holding[];
   value: number;
 }

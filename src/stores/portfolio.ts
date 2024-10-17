@@ -1,16 +1,19 @@
+import { Cryptocurrency } from '@cryptack/interfaces/cryptocurrency';
+import { Portfolio } from '@cryptack/interfaces/portfolio';
 import { persist } from 'zustand/middleware';
 import { create } from 'zustand';
-import { Portfolio } from '@cryptack/interfaces/portfolio';
-import { Cryptocurrency } from '@cryptack/interfaces/cryptocurrency';
+import { Holding } from '@cryptack/interfaces/holding';
 
 type PortfolioStoreState = { portfolio: Portfolio };
 
 type PortfolioStoreActions = {
-  addCryptocurrency: (cryptocurrency: Cryptocurrency) => void;
-  removeCryptocurrency: (
-    cryptocurrencySymbol: Cryptocurrency['symbol'],
+  addHolding: (cryptocurrency: Cryptocurrency, quantity: number) => void;
+  removeHolding: (cryptocurrencySymbol: string) => void;
+  updateHolding: (
+    cryptocurrency: Cryptocurrency,
+    quantity: number,
+    averageCost: number,
   ) => void;
-  updateCryptocurrency: (cryptocurrency: Cryptocurrency) => void;
 };
 
 type PortfolioStore = PortfolioStoreState & PortfolioStoreActions;
@@ -22,36 +25,71 @@ export const usePortfolioStore = create<PortfolioStore>()(
         value: 0,
         holdings: [],
       },
-      addCryptocurrency: (cryptocurrency) =>
+      addHolding: (cryptocurrency, quantity) =>
         set((state) => {
-          const holdings = [...state.portfolio.holdings, cryptocurrency];
-          const value = holdings.reduce(
-            (value, cryptocurrency) => value + cryptocurrency.price,
-            0,
+          const existingHolding = state.portfolio.holdings.find(
+            (h) => h.cryptocurrency.symbol === cryptocurrency.symbol,
           );
-          return { portfolio: { holdings, value } };
+
+          let newHoldings;
+          if (existingHolding) {
+            // If the holding already exists, update the quantity and average cost
+            const updatedHolding = {
+              ...existingHolding,
+              quantity: existingHolding.quantity + quantity,
+              value:
+                (existingHolding.quantity + quantity) *
+                cryptocurrency.currentPrice,
+              averageCost:
+                (existingHolding.averageCost * existingHolding.quantity +
+                  cryptocurrency.currentPrice * quantity) /
+                (existingHolding.quantity + quantity),
+            };
+            newHoldings = state.portfolio.holdings.map((h) =>
+              h.cryptocurrency.symbol === cryptocurrency.symbol
+                ? updatedHolding
+                : h,
+            );
+          } else {
+            // Add new holding
+            const newHolding: Holding = {
+              cryptocurrency,
+              quantity,
+              value: quantity * cryptocurrency.currentPrice,
+              averageCost: cryptocurrency.currentPrice * quantity,
+            };
+            newHoldings = [...state.portfolio.holdings, newHolding];
+          }
+
+          // Recalculate total portfolio value
+          const newValue = newHoldings.reduce((total, h) => total + h.value, 0);
+          return { portfolio: { holdings: newHoldings, value: newValue } };
         }),
-      removeCryptocurrency: (cryptocurrencySymbol) =>
+
+      removeHolding: (cryptocurrencySymbol) =>
         set((state) => {
-          const holdings = state.portfolio.holdings.filter(
-            (c) => c.symbol !== cryptocurrencySymbol,
+          const newHoldings = state.portfolio.holdings.filter(
+            (h) => h.cryptocurrency.symbol !== cryptocurrencySymbol,
           );
-          const value = holdings.reduce(
-            (value, cryptocurrency) => value + cryptocurrency.price,
-            0,
-          );
-          return { portfolio: { holdings, value } };
+          const newValue = newHoldings.reduce((total, h) => total + h.value, 0);
+          return { portfolio: { holdings: newHoldings, value: newValue } };
         }),
-      updateCryptocurrency: (cryptocurrency) =>
+
+      updateHolding: (cryptocurrency, quantity, averageCost) =>
         set((state) => {
-          const holdings = state.portfolio.holdings.map((c) =>
-            c.symbol === cryptocurrency.symbol ? cryptocurrency : c,
+          const newHoldings = state.portfolio.holdings.map((h) =>
+            h.cryptocurrency.symbol === cryptocurrency.symbol
+              ? {
+                  ...h,
+                  cryptocurrency,
+                  quantity,
+                  value: quantity * cryptocurrency.currentPrice,
+                  averageCost,
+                }
+              : h,
           );
-          const value = holdings.reduce(
-            (value, cryptocurrency) => value + cryptocurrency.price,
-            0,
-          );
-          return { portfolio: { holdings, value } };
+          const newValue = newHoldings.reduce((total, h) => total + h.value, 0);
+          return { portfolio: { holdings: newHoldings, value: newValue } };
         }),
     }),
     {

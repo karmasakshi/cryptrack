@@ -1,5 +1,5 @@
 export interface Cryptocurrency {
   name: string;
-  price: number;
+  currentPrice: number;
   symbol: string;
 }
