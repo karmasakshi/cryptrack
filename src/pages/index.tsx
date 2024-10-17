@@ -1,6 +1,8 @@
 import HoldingCard from '@cryptack/components/HoldingCard';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const Holdings = () => {
@@ -38,7 +40,7 @@ const Holdings = () => {
                   type="text"
                   className="form-control"
                   aria-describedby="search"
-                ></input>
+                />
               </div>
             </form>
             <button
@@ -50,13 +52,29 @@ const Holdings = () => {
           </div>
         </div>
 
-        <div className="row g-4 mt-2">
-          {filteredPortfolio.map((h) => (
-            <div className="col-md-6 col-xl-4" key={h.cryptocurrency.symbol}>
-              <HoldingCard removeHolding={handleRemoveHolding} holding={h} />
+        {filteredPortfolio.length > 0 ? (
+          <div className="row g-4 mt-0">
+            {filteredPortfolio.map((h) => (
+              <div className="col-md-6 col-xl-4" key={h.cryptocurrency.symbol}>
+                <HoldingCard removeHolding={handleRemoveHolding} holding={h} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="card border-0 shadow-sm mt-4">
+            <div className="card-body text-center">
+              <Image src="/empty.svg" height={240} width={240} alt="Empty" />
+              <h5>No holdings to display.</h5>
+              <Link
+                href="/add-holding"
+                type="button"
+                className="btn btn-primary mt-4"
+              >
+                Add Holding
+              </Link>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
