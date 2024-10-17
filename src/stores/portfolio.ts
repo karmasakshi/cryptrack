@@ -30,10 +30,8 @@ export const usePortfolioStore = create<PortfolioStore>()(
           const existingHolding = state.portfolio.holdings.find(
             (h) => h.cryptocurrency.symbol === cryptocurrency.symbol,
           );
-
           let newHoldings;
           if (existingHolding) {
-            // If the holding already exists, update the quantity and average cost
             const updatedHolding = {
               ...existingHolding,
               quantity: existingHolding.quantity + quantity,
@@ -51,7 +49,6 @@ export const usePortfolioStore = create<PortfolioStore>()(
                 : h,
             );
           } else {
-            // Add new holding
             const newHolding: Holding = {
               cryptocurrency,
               quantity,
@@ -60,8 +57,6 @@ export const usePortfolioStore = create<PortfolioStore>()(
             };
             newHoldings = [...state.portfolio.holdings, newHolding];
           }
-
-          // Recalculate total portfolio value
           const newValue = newHoldings.reduce((total, h) => total + h.value, 0);
           return { portfolio: { holdings: newHoldings, value: newValue } };
         }),
