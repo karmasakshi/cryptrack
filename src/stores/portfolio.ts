@@ -33,7 +33,7 @@ export const usePortfolioStore = create<PortfolioStore>()(
           let newHoldings;
           if (existingHolding) {
             const updatedHolding = {
-              ...existingHolding,
+              cryptocurrency,
               quantity: existingHolding.quantity + quantity,
               value:
                 (existingHolding.quantity + quantity) *
@@ -75,7 +75,6 @@ export const usePortfolioStore = create<PortfolioStore>()(
           const newHoldings = state.portfolio.holdings.map((h) =>
             h.cryptocurrency.symbol === cryptocurrency.symbol
               ? {
-                  ...h,
                   cryptocurrency,
                   quantity,
                   value: quantity * cryptocurrency.currentPrice,

@@ -9,9 +9,12 @@ const HoldingCard = ({
   holding: Holding;
   removeHolding: (symbol: string) => void;
 }) => {
-  const profit: number =
-    (holding.cryptocurrency.currentPrice - holding.averageCost) *
-    holding.quantity;
+  const profit: number = Number(
+    (
+      (holding.cryptocurrency.currentPrice - holding.averageCost) *
+      holding.quantity
+    ).toFixed(2),
+  );
 
   return (
     <div className="card shadow-sm border-0">
@@ -28,10 +31,6 @@ const HoldingCard = ({
           {holding.cryptocurrency.symbol.toUpperCase()})
         </h5>
         <p className="m-0">
-          <strong>Quantity:</strong>
-          <pre className="d-inline"> {holding.quantity}</pre>
-        </p>
-        <p className="m-0">
           <strong>Current Price:</strong>
           <pre className="d-inline">
             {' '}
@@ -39,8 +38,16 @@ const HoldingCard = ({
           </pre>
         </p>
         <p className="m-0">
+          <strong>Quantity:</strong>
+          <pre className="d-inline"> {holding.quantity}</pre>
+        </p>
+        <p className="m-0">
+          <strong>Average Cost:</strong>
+          <pre className="d-inline"> {holding.averageCost.toFixed(2)}</pre>
+        </p>
+        <p className="m-0">
           <strong>Total Value:</strong>
-          <pre className="d-inline"> ${holding.value}</pre>
+          <pre className="d-inline"> ${holding.value.toFixed(2)}</pre>
         </p>
         <p className={`m-0 ${profit >= 0 ? 'text-success' : 'text-danger'}`}>
           <strong>Profit:</strong>

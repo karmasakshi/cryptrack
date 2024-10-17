@@ -47,8 +47,7 @@ const AddHolding = () => {
       setSymbol('');
       setQuantity('0');
     } catch (err) {
-      console.error(err);
-
+      alert(err);
       setError('Failed to fetch cryptocurrency price or add holding.');
     } finally {
       setLoading(false);
