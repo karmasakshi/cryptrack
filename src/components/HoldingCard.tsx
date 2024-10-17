@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 const HoldingCard = ({
   holding,
-  onRemove,
+  removeHolding,
 }: {
   holding: Holding;
-  onRemove: (symbol: string) => void;
+  removeHolding: (symbol: string) => void;
 }) => {
   const profit: number =
     (holding.cryptocurrency.currentPrice - holding.averageCost) *
@@ -59,7 +59,7 @@ const HoldingCard = ({
           <button
             type="button"
             className="btn btn-sm btn-danger ms-2"
-            onClick={() => onRemove(holding.cryptocurrency.symbol)}
+            onClick={() => removeHolding(holding.cryptocurrency.symbol)}
           >
             Remove
           </button>
