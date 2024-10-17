@@ -1,3 +1,4 @@
+import HoldingCard from '@cryptack/components/HoldingCard';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -32,14 +33,18 @@ const Holdings = () => {
       >
         Sort by Price ({sortOrder})
       </button>
-      <ul>
-        {filteredPortfolio.map((h) => (
-          <li key={h.cryptocurrency.symbol}>
-            {h.cryptocurrency.name} ({h.cryptocurrency.symbol}) - {h.quantity}{' '}
-            units @ USD{h.averageCost} each
-          </li>
-        ))}
-      </ul>
+      <div className="container-fluid my-4">
+        <div className="row g-4">
+          {filteredPortfolio.map((h) => (
+            <div
+              className="col-12 col-lg-6 col-xl-4 d-flex align-items-stretch"
+              key={h.cryptocurrency.symbol}
+            >
+              <HoldingCard holding={h} />
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };

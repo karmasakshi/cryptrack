@@ -1,20 +1,22 @@
-import { getCryptocurrencyPrice } from '@cryptack/apis/cryptocompare';
+import {
+  getCryptocurrencyData,
+  getCryptocurrencyPrice,
+} from '@cryptack/apis/cryptocompare';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import Head from 'next/head';
 import React, { useState } from 'react';
 
 const AddHolding = () => {
   const { addHolding } = usePortfolioStore();
-  const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<string>('0');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleAddHolding = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name || !symbol || quantity <= 0) {
+    if (!symbol || Number(quantity) <= 0) {
       setError('All fields are required and values must be positive.');
       return;
     }
@@ -24,23 +26,26 @@ const AddHolding = () => {
     setError(null);
 
     try {
-      const currentPrice = await getCryptocurrencyPrice(symbol);
+      const [currentPrice, data] = await Promise.all([
+        getCryptocurrencyPrice(symbol),
+        getCryptocurrencyData(symbol),
+      ]);
 
       if (!currentPrice) {
         throw new Error('Unable to fetch the price for this cryptocurrency.');
       }
 
       const cryptocurrency = {
-        name,
+        name: data.NAME,
         currentPrice,
+        logoUrl: data.LOGO_URL,
         symbol,
       };
 
-      addHolding(cryptocurrency, quantity);
+      addHolding(cryptocurrency, Number(quantity));
 
-      setName('');
       setSymbol('');
-      setQuantity(0);
+      setQuantity('0');
     } catch (err) {
       console.error(err);
 
@@ -58,18 +63,6 @@ const AddHolding = () => {
       <h1>Add Cryptocurrency</h1>
       <form onSubmit={handleAddHolding}>
         <div>
-          <label htmlFor="name">Cryptocurrency Name:</label>
-          <input
-            type="text"
-            placeholder="Cryptocurrency Name"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
           <label htmlFor="symbol">Symbol (e.g., BTC, ETH):</label>
           <input
             type="text"
@@ -84,13 +77,13 @@ const AddHolding = () => {
         <div>
           <label htmlFor="quantity">Quantity:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Quantity"
             value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
+            onChange={(e) => setQuantity(e.target.value)}
             id="quantity"
             required
-            min="0"
+            pattern="^(0|[1-9]\d*)(\.\d+)?$"
           />
         </div>
 
