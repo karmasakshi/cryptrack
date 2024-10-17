@@ -1,28 +1,12 @@
-import Link from 'next/link';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
+import Navbar from './Navbar';
 
-type LayoutProps = {
-  children: ReactNode;
-};
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">Dashboard</Link>
-          </li>
-          <li>
-            <Link href="/holdings">Holdings List</Link>
-          </li>
-          <li>
-            <Link href="/add-holding">Add Holding</Link>
-          </li>
-        </ul>
-      </nav>
-      <main>{children}</main>
-    </div>
+    <>
+      <Navbar></Navbar>
+      <main className="container-fluid">{children}</main>
+    </>
   );
 };
 
