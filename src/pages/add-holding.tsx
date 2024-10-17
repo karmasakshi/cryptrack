@@ -2,7 +2,7 @@ import { getCryptocurrencyPrice } from '@cryptack/apis/cryptocompare';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import React, { useState } from 'react';
 
-const Add = () => {
+const AddHolding = () => {
   const { addHolding } = usePortfolioStore();
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
@@ -100,4 +100,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default AddHolding;
