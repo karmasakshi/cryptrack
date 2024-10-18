@@ -76,86 +76,90 @@ const AddHolding = () => {
       <Head>
         <title>Add Holding</title>
       </Head>
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <div
-          className="card border-0 shadow-sm"
-          style={{ width: '480px', marginTop: '-120px' }}
-        >
-          <div className="card-body">
-            <h3 className="card-title text-center">Add Holding</h3>
-            <form className="mt-4" onSubmit={handleAddHolding}>
-              {errors.length > 0 && (
-                <div className="alert alert-danger">
-                  <ul className="m-0">
-                    {errors.map((error, index) => (
-                      <li key={index}>{error}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {success && <div className="alert alert-success">{success}</div>}
-              <div>
-                <label htmlFor="symbol" className="form-label">
-                  Symbol (e.g. BTC, ETH):
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Cryptocurrency symbol"
-                  id="symbol"
-                  value={symbol}
-                  onChange={(e) => setSymbol(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="mt-2">
-                <label htmlFor="quantity" className="form-label">
-                  Quantity:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Quantity bought"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  id="quantity"
-                  required
-                  pattern="^(0|[1-9]\d*)(\.\d+)?$"
-                />
-              </div>
-
-              <div className="mt-2">
-                <label htmlFor="price" className="form-label">
-                  Price (optional):
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Price per unit"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  id="price"
-                  pattern="^(0|[1-9]\d*)(\.\d+)?$"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn btn-primary w-100 mt-4"
-                disabled={loading}
-              >
-                {loading ? (
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                ) : (
-                  'Add Holding'
+      <div className="container-fluid">
+        <div className="d-flex justify-content-center align-items-center min-vh-100">
+          <div
+            className="card border-0 shadow-sm"
+            style={{ width: '480px', marginTop: '-120px' }}
+          >
+            <div className="card-body">
+              <h3 className="card-title text-center">Add Holding</h3>
+              <form className="mt-4" onSubmit={handleAddHolding}>
+                {errors.length > 0 && (
+                  <div className="alert alert-danger">
+                    <ul className="m-0">
+                      {errors.map((error, index) => (
+                        <li key={index}>{error}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
-              </button>
-            </form>
+                {success && (
+                  <div className="alert alert-success">{success}</div>
+                )}
+                <div>
+                  <label htmlFor="symbol" className="form-label">
+                    Symbol (e.g. BTC, ETH):
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Cryptocurrency symbol"
+                    id="symbol"
+                    value={symbol}
+                    onChange={(e) => setSymbol(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mt-2">
+                  <label htmlFor="quantity" className="form-label">
+                    Quantity:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Quantity bought"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    id="quantity"
+                    required
+                    pattern="^(0|[1-9]\d*)(\.\d+)?$"
+                  />
+                </div>
+
+                <div className="mt-2">
+                  <label htmlFor="price" className="form-label">
+                    Price (optional):
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Price per unit"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    id="price"
+                    pattern="^(0|[1-9]\d*)(\.\d+)?$"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100 mt-4"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  ) : (
+                    'Add Holding'
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -47,8 +47,8 @@ const Holdings = () => {
         <title>Holdings</title>
       </Head>
       <div className="container-fluid">
-        <h3 className="my-4">Holdings ({portfolio.holdings.length})</h3>
-        <div className="card border-0 shadow-sm">
+        <h3 className="mt-4">Holdings ({portfolio.holdings.length})</h3>
+        <div className="card border-0 shadow-sm mt-4">
           <div className="card-body">
             <form>
               <div className="d-flex gap-2">

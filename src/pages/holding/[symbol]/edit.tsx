@@ -71,85 +71,87 @@ const EditHolding = () => {
             Edit {holding.cryptocurrency.symbol.toUpperCase()} Holding
           </title>
         </Head>
-        <div className="d-flex justify-content-center align-items-center min-vh-100">
-          <div
-            className="card border-0 shadow-sm"
-            style={{ width: '480px', marginTop: '-120px' }}
-          >
-            <div className="card-body">
-              <div className="d-flex flex-column align-items-center">
-                <Image
-                  className="rounded bg-body-tertiary p-1"
-                  alt={holding.cryptocurrency.name}
-                  height={64}
-                  width={64}
-                  src={
-                    holding.cryptocurrency.logoUrl ||
-                    'https://placehold.co/64x64'
-                  }
-                />
-                <h3 className="card-title mt-4">
-                  Edit {holding.cryptocurrency.symbol.toUpperCase()} Holding
-                </h3>
-                <p className="m-0">
-                  <strong>Current Value:</strong>
-                  <pre className="d-inline">
-                    {' '}
-                    $
-                    {formatAmount(
-                      holding.cryptocurrency.currentPrice *
-                        parseFloat(quantity),
-                    )}
-                  </pre>
-                </p>
-              </div>
-              <form className="mt-4" onSubmit={handleSubmit}>
-                {errors.length > 0 && (
-                  <div className="alert alert-danger">
-                    <ul className="m-0">
-                      {errors.map((error, index) => (
-                        <li key={index}>{error}</li>
-                      ))}
-                    </ul>
+        <div className="container-fluid">
+          <div className="d-flex justify-content-center align-items-center min-vh-100">
+            <div
+              className="card border-0 shadow-sm"
+              style={{ width: '480px', marginTop: '-120px' }}
+            >
+              <div className="card-body">
+                <div className="d-flex flex-column align-items-center">
+                  <Image
+                    className="rounded bg-body-tertiary p-1"
+                    alt={holding.cryptocurrency.name}
+                    height={64}
+                    width={64}
+                    src={
+                      holding.cryptocurrency.logoUrl ||
+                      'https://placehold.co/64x64'
+                    }
+                  />
+                  <h3 className="card-title mt-4">
+                    Edit {holding.cryptocurrency.symbol.toUpperCase()} Holding
+                  </h3>
+                  <p className="m-0">
+                    <strong>Current Value:</strong>
+                    <pre className="d-inline">
+                      {' '}
+                      $
+                      {formatAmount(
+                        holding.cryptocurrency.currentPrice *
+                          parseFloat(quantity),
+                      )}
+                    </pre>
+                  </p>
+                </div>
+                <form className="mt-4" onSubmit={handleSubmit}>
+                  {errors.length > 0 && (
+                    <div className="alert alert-danger">
+                      <ul className="m-0">
+                        {errors.map((error, index) => (
+                          <li key={index}>{error}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {success && (
+                    <div className="alert alert-success">{success}</div>
+                  )}
+                  <div>
+                    <label htmlFor="quantity" className="form-label">
+                      Quantity:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Quantity held"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                      id="quantity"
+                      required
+                      pattern="^(0|[1-9]\d*)(\.\d+)?$"
+                    />
                   </div>
-                )}
-                {success && (
-                  <div className="alert alert-success">{success}</div>
-                )}
-                <div>
-                  <label htmlFor="quantity" className="form-label">
-                    Quantity:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Quantity held"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                    id="quantity"
-                    required
-                    pattern="^(0|[1-9]\d*)(\.\d+)?$"
-                  />
-                </div>
-                <div className="mt-2">
-                  <label htmlFor="averageCost" className="form-label">
-                    Average Cost:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Average cost per unit"
-                    id="averageCost"
-                    value={averageCost}
-                    onChange={(e) => setAverageCost(e.target.value)}
-                    required
-                    pattern="^(0|[1-9]\d*)(\.\d+)?$"
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-100 mt-4">
-                  Update Holding
-                </button>
-              </form>
+                  <div className="mt-2">
+                    <label htmlFor="averageCost" className="form-label">
+                      Average Cost:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Average cost per unit"
+                      id="averageCost"
+                      value={averageCost}
+                      onChange={(e) => setAverageCost(e.target.value)}
+                      required
+                      pattern="^(0|[1-9]\d*)(\.\d+)?$"
+                    />
+                  </div>
+                  <button type="submit" className="btn btn-primary w-100 mt-4">
+                    Update Holding
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
