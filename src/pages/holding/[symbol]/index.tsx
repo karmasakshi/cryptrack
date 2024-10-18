@@ -92,7 +92,7 @@ const Holding = () => {
             {cryptocurrency.name} ({cryptocurrency.symbol.toUpperCase()}) ($
             {formatAmount(cryptocurrency.currentPrice)})
           </h3>
-          <div className="row mt-4">
+          <div className="row row-gap-4 mt-4">
             <div className="col-lg-4">
               <div className="card border-0 shadow-sm">
                 <div className="card-body text-center">
@@ -203,37 +203,38 @@ const Holding = () => {
               <div className="card border-0 shadow-sm mt-4">
                 <div className="card-body">
                   <h5 className="card-title">Project Leaders</h5>
-                  <div
-                    className="d-flex overflow-auto"
-                    style={{ scrollSnapType: 'x mandatory', width: '100%' }}
-                  >
+                  <div className="d-flex overflow-auto">
                     <div
-                      className="d-flex mt-4"
+                      className="d-flex mt-4 p-2"
                       style={{ minWidth: 'max-content' }}
                     >
-                      {cryptocurrencyData?.PROJECT_LEADERS?.map(
-                        (
-                          leader: { FULL_NAME: string; LEADER_TYPE: string },
-                          index: number,
-                        ) => (
-                          <div
-                            key={index}
-                            className="card me-2"
-                            style={{ width: '120px', scrollSnapAlign: 'start' }}
-                          >
-                            <div className="card-body text-center">
-                              <Image
-                                src={`https://avatar.iran.liara.run/public?username=${leader.FULL_NAME}`}
-                                height={90}
-                                width={90}
-                                alt={leader.FULL_NAME}
-                              />
-                              <small className="d-block text-muted mt-2">
-                                {leader.FULL_NAME} ({leader.LEADER_TYPE})
-                              </small>
+                      {cryptocurrencyData?.PROJECT_LEADERS?.length ? (
+                        cryptocurrencyData.PROJECT_LEADERS.map(
+                          (
+                            leader: { FULL_NAME: string; LEADER_TYPE: string },
+                            index: number,
+                          ) => (
+                            <div
+                              key={index}
+                              className="card border-0 shadow-sm me-4"
+                              style={{ width: '120px' }}
+                            >
+                              <div className="card-body text-center">
+                                <Image
+                                  src={`https://avatar.iran.liara.run/public?username=${leader.FULL_NAME}`}
+                                  height={90}
+                                  width={90}
+                                  alt={leader.FULL_NAME}
+                                />
+                                <small className="d-block text-muted mt-2">
+                                  {leader.FULL_NAME} ({leader.LEADER_TYPE})
+                                </small>
+                              </div>
                             </div>
-                          </div>
-                        ),
+                          ),
+                        )
+                      ) : (
+                        <p>No information.</p>
                       )}
                     </div>
                   </div>
