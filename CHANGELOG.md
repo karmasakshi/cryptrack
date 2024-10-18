@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/karmasakshi/cryptrack/compare/v1.1.0...v1.2.0) (2024-10-18)
+
+
+### Features
+
+* **general:** add cryptocurrency data ([9c41a7f](https://github.com/karmasakshi/cryptrack/commit/9c41a7f9f67b18f9b8d0b9a6338dc649eef66a10))
+* **general:** add edit holding ([7344c10](https://github.com/karmasakshi/cryptrack/commit/7344c100a3d05daffdc88a7f1fbc9bf0535dbcc5))
+* **general:** add price history ([02cbbb7](https://github.com/karmasakshi/cryptrack/commit/02cbbb7ef8e7432ebbb8abca3017d0f410587f75))
+
 ## [1.1.0](https://github.com/karmasakshi/cryptrack/compare/v1.0.0...v1.1.0) (2024-10-17)
 
 
