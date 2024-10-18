@@ -10,8 +10,8 @@ const EditHolding = () => {
   const { symbol } = router.query;
   const { portfolio, updateHolding } = usePortfolioStore();
   const [holding, setHolding] = useState<Holding | null>(null);
-  const [quantity, setQuantity] = useState('');
-  const [averageCost, setAverageCost] = useState('');
+  const [quantity, setQuantity] = useState<string>('');
+  const [averageCost, setAverageCost] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState<string | null>(null);
 

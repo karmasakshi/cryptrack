@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const router = useRouter();
-  const [activePath, setActivePath] = useState('');
+  const [activePath, setActivePath] = useState<string>('');
 
   useEffect(() => {
     setActivePath(router.pathname);

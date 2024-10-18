@@ -1,4 +1,5 @@
 import HoldingCard from '@cryptack/components/HoldingCard';
+import { Filters } from '@cryptack/interfaces/filters';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -13,7 +14,7 @@ const Holdings = () => {
     sortOrder: 'asc',
   };
 
-  const [filters, setFilters] = useState(defaultFilters);
+  const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const filteredPortfolio = portfolio.holdings
     .filter((h) =>

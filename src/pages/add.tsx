@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 const AddHolding = () => {
   const { addHolding } = usePortfolioStore();
-  const [symbol, setSymbol] = useState('');
+  const [symbol, setSymbol] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
