@@ -21,13 +21,21 @@ const Holdings = () => {
         .toLowerCase()
         .includes(filters.searchKey.toLowerCase()),
     )
-    .sort((a, b) =>
-      filters.sortOrder === 'asc'
-        ? // @ts-expect-error @typescript-eslint/no-explicit-any
-          a[filters.sortKey] - b[filters.sortKey]
-        : // @ts-expect-error @typescript-eslint/no-explicit-any
-          b[filters.sortKey] - a[filters.sortKey],
-    );
+    .sort((a, b) => {
+      if (filters.sortOrder === 'asc') {
+        if (filters.sortKey === 'cryptocurrency.symbol') {
+          return a.cryptocurrency.symbol.localeCompare(b.cryptocurrency.symbol);
+        }
+        // @ts-expect-error @typescript-eslint/no-explicit-any
+        return a[filters.sortKey] - b[filters.sortKey];
+      } else {
+        if (filters.sortKey === 'cryptocurrency.symbol') {
+          return b.cryptocurrency.symbol.localeCompare(a.cryptocurrency.symbol);
+        }
+        // @ts-expect-error @typescript-eslint/no-explicit-any
+        return b[filters.sortKey] - a[filters.sortKey];
+      }
+    });
 
   const handleRemoveHolding = (symbol: string) => {
     removeHolding(symbol);
@@ -43,7 +51,7 @@ const Holdings = () => {
         <div className="card border-0 shadow-sm">
           <div className="card-body">
             <form>
-              <div className="d-flex gap-2 mb-2">
+              <div className="d-flex gap-2">
                 <input
                   value={filters.searchKey}
                   onChange={(e) =>
@@ -62,7 +70,7 @@ const Holdings = () => {
                   Clear
                 </button>
               </div>
-              <div className="d-flex gap-2">
+              <div className="d-flex gap-2 mt-2">
                 <select
                   className="form-select"
                   aria-label="Sort by"
