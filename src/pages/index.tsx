@@ -7,15 +7,26 @@ import { useState } from 'react';
 
 const Holdings = () => {
   const { portfolio, removeHolding } = usePortfolioStore();
-  const [searchKey, setSearchKey] = useState('');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const defaultFilters = {
+    searchKey: '',
+    sortKey: 'name',
+    sortOrder: 'asc',
+  };
+
+  const [filters, setFilters] = useState(defaultFilters);
 
   const filteredPortfolio = portfolio.holdings
     .filter((h) =>
-      h.cryptocurrency.name.toLowerCase().includes(searchKey.toLowerCase()),
+      h.cryptocurrency.name
+        .toLowerCase()
+        .includes(filters.searchKey.toLowerCase()),
     )
     .sort((a, b) =>
-      sortOrder === 'asc' ? a.value - b.value : b.value - a.value,
+      filters.sortOrder === 'asc'
+        ? // @ts-expect-error @typescript-eslint/no-explicit-any
+          a[filters.sortKey] - b[filters.sortKey]
+        : // @ts-expect-error @typescript-eslint/no-explicit-any
+          b[filters.sortKey] - a[filters.sortKey],
     );
 
   const handleRemoveHolding = (symbol: string) => {
@@ -32,23 +43,57 @@ const Holdings = () => {
         <div className="card border-0 shadow-sm">
           <div className="card-body">
             <form>
-              <div className="mb-3">
+              <div className="d-flex gap-2 mb-2">
                 <input
-                  value={searchKey}
-                  onChange={(e) => setSearchKey(e.target.value)}
+                  value={filters.searchKey}
+                  onChange={(e) =>
+                    setFilters({ ...filters, searchKey: e.target.value })
+                  }
                   placeholder="Search"
                   type="text"
                   className="form-control"
                   aria-describedby="search"
                 />
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setFilters(defaultFilters)}
+                >
+                  Clear
+                </button>
+              </div>
+              <div className="d-flex gap-2">
+                <select
+                  className="form-select"
+                  aria-label="Sort by"
+                  value={filters.sortKey}
+                  onChange={(e) =>
+                    setFilters({ ...filters, sortKey: e.target.value })
+                  }
+                >
+                  <option value="value">Value</option>
+                  <option value="averageCost">Average Cost</option>
+                  <option value="quantity">Quantity</option>
+                  <option value="cryptocurrency.currentPrice">
+                    Current Price
+                  </option>
+                  <option value="cryptocurrency.name">Name</option>
+                  <option value="cryptocurrency.symbol">Symbol</option>
+                </select>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() =>
+                    setFilters({
+                      ...filters,
+                      sortOrder: filters.sortOrder === 'asc' ? 'desc' : 'asc',
+                    })
+                  }
+                >
+                  Sort&nbsp;Order&nbsp;({filters.sortOrder.toUpperCase()})
+                </button>
               </div>
             </form>
-            <button
-              className="btn btn-primary"
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-            >
-              Sort by Price ({sortOrder})
-            </button>
           </div>
         </div>
 
@@ -65,14 +110,19 @@ const Holdings = () => {
             <div className="card-body text-center">
               <Image src="/empty.svg" height={240} width={240} alt="Empty" />
               <h5>No holdings to display.</h5>
-              <div className="mt-4">
-                <Link href="/add-holding" className="btn btn-primary me-2">
-                  Add Holding
-                </Link>
-                <button type="button" className="btn btn-primary">
+              {filters.searchKey ? (
+                <button
+                  type="button"
+                  className="mt-4 btn btn-secondary"
+                  onClick={() => setFilters(defaultFilters)}
+                >
                   Clear Filters
                 </button>
-              </div>
+              ) : (
+                <Link href="/add-holding" className="mt-4 btn btn-primary">
+                  Add Holding
+                </Link>
+              )}
             </div>
           </div>
         )}
