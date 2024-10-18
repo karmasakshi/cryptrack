@@ -96,67 +96,91 @@ const Holding = () => {
             <div className="col-lg-4">
               <div className="card border-0 shadow-sm">
                 <div className="card-body text-center">
-                  <Image
-                    src={cryptocurrency.logoUrl}
-                    alt={cryptocurrency.name}
-                    width={120}
-                    height={120}
-                  />
-                  <p className="lead mt-4">
-                    {cryptocurrencyData?.ASSET_DESCRIPTION_SNIPPET}
-                  </p>
-                  <small className="text-muted mt-4">
-                    {cryptocurrencyData?.ASSET_DESCRIPTION_SUMMARY}
-                  </small>
+                  {loading ? (
+                    <div className="placeholder-glow">
+                      <span
+                        className="placeholder col-12"
+                        style={{ height: '120px', display: 'block' }}
+                      ></span>
+                      <p className="lead mt-4 placeholder col-12"></p>
+                      <small className="text-muted mt-4 placeholder col-12"></small>
+                    </div>
+                  ) : (
+                    <>
+                      <Image
+                        src={cryptocurrency.logoUrl}
+                        alt={cryptocurrency.name}
+                        width={120}
+                        height={120}
+                      />
+                      <p className="lead mt-4">
+                        {cryptocurrencyData?.ASSET_DESCRIPTION_SNIPPET}
+                      </p>
+                      <small className="text-muted mt-4">
+                        {cryptocurrencyData?.ASSET_DESCRIPTION_SUMMARY}
+                      </small>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="card border-0 shadow-sm mt-4">
                 <div className="card-body">
                   <h5 className="card-title">Official Channels</h5>
                   <div className="d-flex flex-wrap justify-content-center gap-2 mt-4">
-                    {cryptocurrencyData?.SUBREDDITS?.[0]?.URL && (
-                      <a
-                        target="_blank"
-                        href={cryptocurrencyData.SUBREDDITS[0].URL}
-                        className="btn btn-light"
-                      >
-                        Reddit
-                      </a>
+                    {loading ? (
+                      <div className="placeholder-glow col-12">
+                        <span
+                          className="placeholder col-12"
+                          style={{ height: '40px', display: 'block' }}
+                        ></span>
+                      </div>
+                    ) : (
+                      <>
+                        {cryptocurrencyData?.SUBREDDITS?.[0]?.URL && (
+                          <a
+                            target="_blank"
+                            href={cryptocurrencyData.SUBREDDITS[0].URL}
+                            className="btn btn-light"
+                          >
+                            Reddit
+                          </a>
+                        )}
+                        {cryptocurrencyData?.TWITTER_ACCOUNTS?.[0]?.URL && (
+                          <a
+                            target="_blank"
+                            href={cryptocurrencyData.TWITTER_ACCOUNTS[0].URL}
+                            className="btn btn-light"
+                          >
+                            X/Twitter
+                          </a>
+                        )}
+                        {cryptocurrencyData?.DISCORD_SERVERS?.[0]?.URL && (
+                          <a
+                            target="_blank"
+                            href={cryptocurrencyData.DISCORD_SERVERS[0].URL}
+                            className="btn btn-light"
+                          >
+                            Discord
+                          </a>
+                        )}
+                        {cryptocurrencyData?.TELEGRAM_GROUPS?.[0]?.URL && (
+                          <a
+                            target="_blank"
+                            href={cryptocurrencyData.TELEGRAM_GROUPS[0].URL}
+                            className="btn btn-light"
+                          >
+                            Telegram
+                          </a>
+                        )}
+                        <a
+                          target="_blank"
+                          href={cryptocurrencyData?.WEBSITE_URL}
+                          className="btn btn-light"
+                        >
+                          Official Website
+                        </a>
+                      </>
                     )}
-                    {cryptocurrencyData?.TWITTER_ACCOUNTS?.[0]?.URL && (
-                      <a
-                        target="_blank"
-                        href={cryptocurrencyData.TWITTER_ACCOUNTS[0].URL}
-                        className="btn btn-light"
-                      >
-                        X/Twitter
-                      </a>
-                    )}
-                    {cryptocurrencyData?.DISCORD_SERVERS?.[0]?.URL && (
-                      <a
-                        target="_blank"
-                        href={cryptocurrencyData.DISCORD_SERVERS[0].URL}
-                        className="btn btn-light"
-                      >
-                        Discord
-                      </a>
-                    )}
-                    {cryptocurrencyData?.TELEGRAM_GROUPS?.[0]?.URL && (
-                      <a
-                        target="_blank"
-                        href={cryptocurrencyData.TELEGRAM_GROUPS[0].URL}
-                        className="btn btn-light"
-                      >
-                        Telegram
-                      </a>
-                    )}
-                    <a
-                      target="_blank"
-                      href={cryptocurrencyData?.WEBSITE_URL}
-                      className="btn btn-light"
-                    >
-                      Official Website
-                    </a>
                   </div>
                 </div>
               </div>
@@ -208,7 +232,14 @@ const Holding = () => {
                       className="d-flex mt-4 p-2"
                       style={{ minWidth: 'max-content' }}
                     >
-                      {cryptocurrencyData?.PROJECT_LEADERS?.length ? (
+                      {loading ? (
+                        <div className="placeholder-glow col-12">
+                          <span
+                            className="placeholder col-12"
+                            style={{ height: '120px', display: 'block' }}
+                          ></span>
+                        </div>
+                      ) : cryptocurrencyData?.PROJECT_LEADERS?.length ? (
                         cryptocurrencyData.PROJECT_LEADERS.map(
                           (
                             leader: { FULL_NAME: string; LEADER_TYPE: string },
