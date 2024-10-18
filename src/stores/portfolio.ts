@@ -1,8 +1,8 @@
 import { Cryptocurrency } from '@cryptack/interfaces/cryptocurrency';
-import { Portfolio } from '@cryptack/interfaces/portfolio';
-import { persist } from 'zustand/middleware';
-import { create } from 'zustand';
 import { Holding } from '@cryptack/interfaces/holding';
+import { Portfolio } from '@cryptack/interfaces/portfolio';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type PortfolioStoreState = { portfolio: Portfolio };
 

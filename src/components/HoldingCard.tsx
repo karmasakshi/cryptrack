@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import { Holding } from '@cryptack/interfaces/holding';
-import Link from 'next/link';
 import { formatAmount } from '@cryptack/utils/format-amount';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const HoldingCard = ({
   holding,
