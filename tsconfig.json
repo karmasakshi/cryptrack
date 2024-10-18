@@ -18,7 +18,8 @@
       "@cryptack/components/*": ["src/components/*"],
       "@cryptack/interfaces/*": ["src/interfaces/*"],
       "@cryptack/pages/*": ["src/pages/*"],
-      "@cryptack/store/*": ["src/stores/*"]
+      "@cryptack/store/*": ["src/stores/*"],
+      "@cryptack/utils/*": ["src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,4 +1,5 @@
 import { usePortfolioStore } from '@cryptack/store/portfolio';
+import { formatAmount } from '@cryptack/utils/format-amount';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -33,7 +34,7 @@ const Navbar = () => {
         </div>
         <div className="d-flex gap-2">
           <button type="button" className="btn btn-light" disabled>
-            ${portfolio.value.toFixed(2)} ({portfolio.holdings.length})
+            ${formatAmount(portfolio.value)} ({portfolio.holdings.length})
           </button>
           <Link className="btn btn-primary" href="/add-holding">
             Add Holding

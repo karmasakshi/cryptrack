@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Holding } from '@cryptack/interfaces/holding';
 import Link from 'next/link';
+import { formatAmount } from '@cryptack/utils/format-amount';
 
 const HoldingCard = ({
   holding,
@@ -34,24 +35,24 @@ const HoldingCard = ({
           <strong>Current Price:</strong>
           <pre className="d-inline">
             {' '}
-            ${holding.cryptocurrency.currentPrice}
+            ${formatAmount(holding.cryptocurrency.currentPrice)}
           </pre>
         </p>
         <p className="m-0">
           <strong>Quantity:</strong>
-          <pre className="d-inline"> {holding.quantity}</pre>
+          <pre className="d-inline"> {formatAmount(holding.quantity)}</pre>
         </p>
         <p className="m-0">
           <strong>Average Cost:</strong>
-          <pre className="d-inline"> {holding.averageCost.toFixed(2)}</pre>
+          <pre className="d-inline"> {formatAmount(holding.averageCost)}</pre>
         </p>
         <p className="m-0">
           <strong>Value:</strong>
-          <pre className="d-inline"> ${holding.value.toFixed(2)}</pre>
+          <pre className="d-inline"> ${formatAmount(holding.value)}</pre>
         </p>
         <p className={`m-0 ${profit >= 0 ? 'text-success' : 'text-danger'}`}>
           <strong>Profit:</strong>
-          <pre className="d-inline"> ${profit}</pre>
+          <pre className="d-inline"> ${formatAmount(profit)}</pre>
         </p>
         <div className="mt-4">
           <Link
