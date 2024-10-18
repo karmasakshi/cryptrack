@@ -53,7 +53,7 @@ export const usePortfolioStore = create<PortfolioStore>()(
               cryptocurrency,
               quantity,
               value: quantity * cryptocurrency.currentPrice,
-              averageCost: cryptocurrency.currentPrice * quantity,
+              averageCost: cryptocurrency.currentPrice,
             };
             newHoldings = [...state.portfolio.holdings, newHolding];
           }

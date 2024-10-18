@@ -46,7 +46,7 @@ const HoldingCard = ({
           <pre className="d-inline"> {holding.averageCost.toFixed(2)}</pre>
         </p>
         <p className="m-0">
-          <strong>Total Value:</strong>
+          <strong>Value:</strong>
           <pre className="d-inline"> ${holding.value.toFixed(2)}</pre>
         </p>
         <p className={`m-0 ${profit >= 0 ? 'text-success' : 'text-danger'}`}>
