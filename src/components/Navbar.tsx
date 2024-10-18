@@ -34,7 +34,9 @@ const Navbar = () => {
         </div>
         <div className="d-flex gap-2">
           <button type="button" className="btn btn-light" disabled>
-            ${formatAmount(portfolio.value)} ({portfolio.holdings.length})
+            <pre className="d-inline">
+              ${formatAmount(portfolio.value)} ({portfolio.holdings.length})
+            </pre>
           </button>
           <Link className="btn btn-primary" href="/add">
             Add Holding

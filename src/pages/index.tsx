@@ -64,7 +64,7 @@ const Holdings = () => {
                 />
                 <button
                   type="button"
-                  className="btn btn-outline-secondary"
+                  className="btn btn-light"
                   onClick={() => setFilters(defaultFilters)}
                 >
                   Clear
@@ -90,7 +90,7 @@ const Holdings = () => {
                 </select>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary"
+                  className="btn btn-light"
                   onClick={() =>
                     setFilters({
                       ...filters,
@@ -121,7 +121,7 @@ const Holdings = () => {
               {filters.searchKey ? (
                 <button
                   type="button"
-                  className="mt-4 btn btn-outline-secondary"
+                  className="mt-4 btn btn-light"
                   onClick={() => setFilters(defaultFilters)}
                 >
                   Clear Filters
