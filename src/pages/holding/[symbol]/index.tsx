@@ -1,10 +1,15 @@
-import { getHistoricalData } from '@cryptack/apis/cryptocompare';
+import {
+  getCryptocurrencyData,
+  getHistoricalData,
+} from '@cryptack/apis/cryptocompare';
 import { Cryptocurrency } from '@cryptack/interfaces/cryptocurrency';
+import { CryptocurrencyData } from '@cryptack/interfaces/cryptocurrency-data';
 import { HistoricalData } from '@cryptack/interfaces/historical-data';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import { formatAmount } from '@cryptack/utils/format-amount';
 import 'chart.js/auto';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
@@ -14,6 +19,8 @@ const Holding = () => {
   const { symbol } = router.query;
   const { portfolio } = usePortfolioStore();
   const [historicalData, setHistoricalData] = useState<HistoricalData[]>([]);
+  const [cryptocurrencyData, setCryptocurrencyData] =
+    useState<CryptocurrencyData | null>(null);
   const [timeframe, setTimeframe] = useState<number>(30);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -27,6 +34,9 @@ const Holding = () => {
       getHistoricalData(cryptocurrency.symbol, timeframe).then((response) => {
         setHistoricalData(response.Data);
         setLoading(false);
+      });
+      getCryptocurrencyData(cryptocurrency.symbol).then((response) => {
+        setCryptocurrencyData(response);
       });
     }
   }, [cryptocurrency, timeframe]);
@@ -73,48 +83,161 @@ const Holding = () => {
     return (
       <>
         <Head>
-          <title>{cryptocurrency.symbol.toUpperCase()} Details</title>
+          <title>
+            {cryptocurrency.name} ({cryptocurrency.symbol.toUpperCase()})
+          </title>
         </Head>
         <div className="container-fluid">
           <h3 className="mt-4">
-            {cryptocurrency.symbol.toUpperCase()} Details ($
+            {cryptocurrency.name} ({cryptocurrency.symbol.toUpperCase()}) ($
             {formatAmount(cryptocurrency.currentPrice)})
           </h3>
-          <div className="card mt-4 border-0 shadow-sm">
-            <div className="card-body">
-              <h5 className="card-title">Historical Prices</h5>
-              <div className="mt-2 d-flex justify-content-end">
-                <div className="btn-group" role="group">
-                  <button
-                    onClick={() => setTimeframe(1)}
-                    className={`btn btn-secondary ${timeframe === 1 ? 'active' : ''}`}
-                  >
-                    24h
-                  </button>
-                  <button
-                    onClick={() => setTimeframe(7)}
-                    className={`btn btn-secondary ${timeframe === 7 ? 'active' : ''}`}
-                  >
-                    7d
-                  </button>
-                  <button
-                    onClick={() => setTimeframe(30)}
-                    className={`btn btn-secondary ${timeframe === 30 ? 'active' : ''}`}
-                  >
-                    30d
-                  </button>
+          <div className="row mt-4">
+            <div className="col-lg-4">
+              <div className="card border-0 shadow-sm">
+                <div className="card-body text-center">
+                  <Image
+                    src={cryptocurrency.logoUrl}
+                    alt={cryptocurrency.name}
+                    width={120}
+                    height={120}
+                  />
+                  <p className="lead mt-4">
+                    {cryptocurrencyData?.ASSET_DESCRIPTION_SNIPPET}
+                  </p>
+                  <small className="text-muted mt-4">
+                    {cryptocurrencyData?.ASSET_DESCRIPTION_SUMMARY}
+                  </small>
                 </div>
               </div>
-              <div className="mt-4">
-                {loading ? (
-                  <div className="d-flex justify-content-center align-items-center pb-4">
-                    <div className="spinner-border" role="status">
-                      <span className="visually-hidden">Loading...</span>
+              <div className="card border-0 shadow-sm mt-4">
+                <div className="card-body">
+                  <h5 className="card-title">Official Channels</h5>
+                  <div className="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                    {cryptocurrencyData?.SUBREDDITS?.[0]?.URL && (
+                      <a
+                        target="_blank"
+                        href={cryptocurrencyData.SUBREDDITS[0].URL}
+                        className="btn btn-light"
+                      >
+                        Reddit
+                      </a>
+                    )}
+                    {cryptocurrencyData?.TWITTER_ACCOUNTS?.[0]?.URL && (
+                      <a
+                        target="_blank"
+                        href={cryptocurrencyData.TWITTER_ACCOUNTS[0].URL}
+                        className="btn btn-light"
+                      >
+                        X/Twitter
+                      </a>
+                    )}
+                    {cryptocurrencyData?.DISCORD_SERVERS?.[0]?.URL && (
+                      <a
+                        target="_blank"
+                        href={cryptocurrencyData.DISCORD_SERVERS[0].URL}
+                        className="btn btn-light"
+                      >
+                        Discord
+                      </a>
+                    )}
+                    {cryptocurrencyData?.TELEGRAM_GROUPS?.[0]?.URL && (
+                      <a
+                        target="_blank"
+                        href={cryptocurrencyData.TELEGRAM_GROUPS[0].URL}
+                        className="btn btn-light"
+                      >
+                        Telegram
+                      </a>
+                    )}
+                    <a
+                      target="_blank"
+                      href={cryptocurrencyData?.WEBSITE_URL}
+                      className="btn btn-light"
+                    >
+                      Official Website
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-8">
+              <div className="card border-0 shadow-sm">
+                <div className="card-body">
+                  <h5 className="card-title">Historical Prices</h5>
+                  <div className="mt-2 d-flex justify-content-end">
+                    <div className="btn-group" role="group">
+                      <button
+                        onClick={() => setTimeframe(1)}
+                        className={`btn btn-secondary ${timeframe === 1 ? 'active' : ''}`}
+                      >
+                        24h
+                      </button>
+                      <button
+                        onClick={() => setTimeframe(7)}
+                        className={`btn btn-secondary ${timeframe === 7 ? 'active' : ''}`}
+                      >
+                        7d
+                      </button>
+                      <button
+                        onClick={() => setTimeframe(30)}
+                        className={`btn btn-secondary ${timeframe === 30 ? 'active' : ''}`}
+                      >
+                        30d
+                      </button>
                     </div>
                   </div>
-                ) : (
-                  <Line data={chartData} />
-                )}
+                  <div className="mt-4">
+                    {loading ? (
+                      <div className="d-flex justify-content-center align-items-center pb-4">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <Line data={chartData} />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="card border-0 shadow-sm mt-4">
+                <div className="card-body">
+                  <h5 className="card-title">Project Leaders</h5>
+                  <div
+                    className="d-flex overflow-auto"
+                    style={{ scrollSnapType: 'x mandatory', width: '100%' }}
+                  >
+                    <div
+                      className="d-flex mt-4"
+                      style={{ minWidth: 'max-content' }}
+                    >
+                      {cryptocurrencyData?.PROJECT_LEADERS?.map(
+                        (
+                          leader: { FULL_NAME: string; LEADER_TYPE: string },
+                          index: number,
+                        ) => (
+                          <div
+                            key={index}
+                            className="card me-2"
+                            style={{ width: '120px', scrollSnapAlign: 'start' }}
+                          >
+                            <div className="card-body text-center">
+                              <Image
+                                src={`https://avatar.iran.liara.run/public?username=${leader.FULL_NAME}`}
+                                height={90}
+                                width={90}
+                                alt={leader.FULL_NAME}
+                              />
+                              <small className="d-block text-muted mt-2">
+                                {leader.FULL_NAME} ({leader.LEADER_TYPE})
+                              </small>
+                            </div>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -14,6 +14,12 @@ module.exports = {
         port: '',
         pathname: '/asset-management/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatar.iran.liara.run',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

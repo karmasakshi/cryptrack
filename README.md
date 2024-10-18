@@ -48,11 +48,11 @@
 
 ## Technologies used
 
-- Next.js
+- Next.js/React
 - Bootstrap
 - zustand
 - chart.js
-- CoinGecko API
+- CryptoCompare API
 
 ## Additional features
 
