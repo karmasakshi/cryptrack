@@ -4,6 +4,7 @@ import {
 } from '@cryptack/apis/cryptocompare';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import Head from 'next/head';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const AddHolding = () => {
@@ -83,7 +84,16 @@ const AddHolding = () => {
             style={{ width: '480px', marginTop: '-120px' }}
           >
             <div className="card-body">
-              <h3 className="card-title text-center">Add Holding</h3>
+              <div className="d-flex flex-column align-items-center">
+                <Image
+                  className="rounded bg-body-tertiary p-2"
+                  alt="Cryptack"
+                  height={64}
+                  width={64}
+                  src="/logo.svg"
+                />
+                <h3 className="card-title mt-4">Add Holding</h3>
+              </div>
               <form className="mt-4" onSubmit={handleAddHolding}>
                 {errors.length > 0 && (
                   <div className="alert alert-danger">

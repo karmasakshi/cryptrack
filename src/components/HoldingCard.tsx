@@ -20,9 +20,9 @@ const HoldingCard = ({
   return (
     <div className="card shadow-sm border-0">
       <div className="card-body">
-        <h5 className="card-title d-flex align-items-center">
+        <h5 className="card-title d-flex align-items-center gap-2">
           <Image
-            className="me-2 rounded bg-body-tertiary p-1"
+            className="rounded bg-body-tertiary p-1"
             alt={holding.cryptocurrency.name}
             height={32}
             width={32}
@@ -54,16 +54,16 @@ const HoldingCard = ({
           <strong>Profit:</strong>
           <pre className="d-inline"> ${formatAmount(profit)}</pre>
         </p>
-        <div className="mt-4">
+        <div className="mt-4 d-flex gap-2">
           <Link
             href={`/holding/${holding.cryptocurrency.symbol}`}
-            className="btn btn-sm btn-primary me-2"
+            className="btn btn-sm btn-primary"
           >
             View Details
           </Link>
           <Link
             href={`/holding/${holding.cryptocurrency.symbol}/edit`}
-            className="btn btn-sm btn-warning me-2"
+            className="btn btn-sm btn-warning"
           >
             Edit
           </Link>

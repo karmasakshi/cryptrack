@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { usePortfolioStore } from '@cryptack/store/portfolio';
 import { Holding } from '@cryptack/interfaces/holding';
-import { formatAmount } from '@cryptack/utils/format-amount';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -80,7 +79,7 @@ const EditHolding = () => {
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center">
                   <Image
-                    className="rounded bg-body-tertiary p-1"
+                    className="rounded bg-body-tertiary p-2"
                     alt={holding.cryptocurrency.name}
                     height={64}
                     width={64}
@@ -92,17 +91,6 @@ const EditHolding = () => {
                   <h3 className="card-title mt-4">
                     Edit {holding.cryptocurrency.symbol.toUpperCase()} Holding
                   </h3>
-                  <p className="m-0">
-                    <strong>Current Value:</strong>
-                    <pre className="d-inline">
-                      {' '}
-                      $
-                      {formatAmount(
-                        holding.cryptocurrency.currentPrice *
-                          parseFloat(quantity),
-                      )}
-                    </pre>
-                  </p>
                 </div>
                 <form className="mt-4" onSubmit={handleSubmit}>
                   {errors.length > 0 && (
