@@ -36,7 +36,7 @@ const Navbar = () => {
           <button type="button" className="btn btn-light" disabled>
             ${formatAmount(portfolio.value)} ({portfolio.holdings.length})
           </button>
-          <Link className="btn btn-primary" href="/add-holding">
+          <Link className="btn btn-primary" href="/add">
             Add Holding
           </Link>
         </div>

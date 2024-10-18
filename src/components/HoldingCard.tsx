@@ -56,14 +56,17 @@ const HoldingCard = ({
         </p>
         <div className="mt-4">
           <Link
-            href={`/holdings/${holding.cryptocurrency.symbol}`}
+            href={`/holding/${holding.cryptocurrency.symbol}`}
             className="btn btn-sm btn-primary me-2"
           >
             View Details
           </Link>
-          <button type="button" className="btn btn-sm btn-warning me-2">
+          <Link
+            href={`/holding/${holding.cryptocurrency.symbol}/edit`}
+            className="btn btn-sm btn-warning me-2"
+          >
             Edit
-          </button>
+          </Link>
           <button
             type="button"
             className="btn btn-sm btn-danger"

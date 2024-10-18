@@ -127,7 +127,7 @@ const Holdings = () => {
                   Clear Filters
                 </button>
               ) : (
-                <Link href="/add-holding" className="mt-4 btn btn-primary">
+                <Link href="/add" className="mt-4 btn btn-primary">
                   Add Holding
                 </Link>
               )}
