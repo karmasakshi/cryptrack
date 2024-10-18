@@ -9,35 +9,51 @@ import React, { useState } from 'react';
 const AddHolding = () => {
   const { addHolding } = usePortfolioStore();
   const [symbol, setSymbol] = useState('');
-  const [quantity, setQuantity] = useState<string>('0');
-  const [error, setError] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
+  const [errors, setErrors] = useState<string[]>([]);
+  const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleAddHolding = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!symbol || Number(quantity) <= 0) {
-      setError('All fields are required and values must be positive.');
+    const newErrors: string[] = [];
+
+    if (!symbol) {
+      newErrors.push('Symbol is required.');
+    }
+
+    if (!quantity || Number(quantity) <= 0) {
+      newErrors.push('Quantity must be a positive number.');
+    }
+
+    if (price && Number(price) <= 0) {
+      newErrors.push('Price must be a positive number.');
+    }
+
+    if (newErrors.length > 0) {
+      setErrors(newErrors);
       return;
     }
 
     setLoading(true);
-
-    setError(null);
+    setSuccess(null);
+    setErrors([]);
 
     try {
-      const [currentPrice, data] = await Promise.all([
+      const [apiPrice, data] = await Promise.all([
         getCryptocurrencyPrice(symbol),
         getCryptocurrencyData(symbol),
       ]);
 
-      if (!currentPrice) {
+      if (!apiPrice) {
         throw new Error('Unable to fetch the price for this cryptocurrency.');
       }
 
       const cryptocurrency = {
         name: data.NAME,
-        currentPrice,
+        currentPrice: price ? Number(price) : apiPrice,
         logoUrl: data.LOGO_URL,
         symbol,
       };
@@ -45,10 +61,11 @@ const AddHolding = () => {
       addHolding(cryptocurrency, Number(quantity));
 
       setSymbol('');
-      setQuantity('0');
-    } catch (err) {
-      alert(err);
-      setError('Failed to fetch cryptocurrency price or add holding.');
+      setQuantity('');
+      setPrice('');
+      setSuccess('Holding added successfully!');
+    } catch {
+      setErrors(['Failed to add holding.']);
     } finally {
       setLoading(false);
     }
@@ -59,39 +76,89 @@ const AddHolding = () => {
       <Head>
         <title>Add Holding</title>
       </Head>
-      <h1>Add Cryptocurrency</h1>
-      <form onSubmit={handleAddHolding}>
-        <div>
-          <label htmlFor="symbol">Symbol (e.g., BTC, ETH):</label>
-          <input
-            type="text"
-            placeholder="Symbol (e.g., BTC)"
-            id="symbol"
-            value={symbol}
-            onChange={(e) => setSymbol(e.target.value)}
-            required
-          />
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div
+          className="card border-0 shadow-sm"
+          style={{ width: '480px', marginTop: '-120px' }}
+        >
+          <div className="card-body">
+            <h3 className="card-title text-center">Add Holding</h3>
+            <form className="mt-4" onSubmit={handleAddHolding}>
+              {errors.length > 0 && (
+                <div className="alert alert-danger">
+                  <ul className="m-0">
+                    {errors.map((error, index) => (
+                      <li key={index}>{error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {success && <div className="alert alert-success">{success}</div>}
+              <div>
+                <label htmlFor="symbol" className="form-label">
+                  Symbol (e.g. BTC, ETH):
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Cryptocurrency symbol"
+                  id="symbol"
+                  value={symbol}
+                  onChange={(e) => setSymbol(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mt-2">
+                <label htmlFor="quantity" className="form-label">
+                  Quantity:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Quantity bought"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  id="quantity"
+                  required
+                  pattern="^(0|[1-9]\d*)(\.\d+)?$"
+                />
+              </div>
+
+              <div className="mt-2">
+                <label htmlFor="price" className="form-label">
+                  Price (optional):
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Price per unit"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  id="price"
+                  pattern="^(0|[1-9]\d*)(\.\d+)?$"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary w-100 mt-4"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                ) : (
+                  'Add Holding'
+                )}
+              </button>
+            </form>
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="quantity">Quantity:</label>
-          <input
-            type="text"
-            placeholder="Quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            id="quantity"
-            required
-            pattern="^(0|[1-9]\d*)(\.\d+)?$"
-          />
-        </div>
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-
-        <button type="submit" disabled={loading}>
-          {loading ? 'Adding...' : 'Add Holding'}
-        </button>
-      </form>
+      </div>
     </>
   );
 };
