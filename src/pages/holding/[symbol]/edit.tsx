@@ -73,7 +73,7 @@ const EditHolding = () => {
         <div className="container-fluid">
           <div
             className="card border-0 shadow-sm mt-5 mx-auto"
-            style={{ width: '480px', marginTop: '-120px' }}
+            style={{ width: '480px', maxWidth: '100%' }}
           >
             <div className="card-body">
               <div className="d-flex flex-column align-items-center">

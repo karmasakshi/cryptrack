@@ -40,7 +40,7 @@ const HoldingCard = ({
         </p>
         <p className="m-0">
           <strong>Quantity:</strong>
-          <pre className="d-inline"> {formatAmount(holding.quantity)}</pre>
+          <pre className="d-inline"> {holding.quantity}</pre>
         </p>
         <p className="m-0">
           <strong>Average Cost:</strong>

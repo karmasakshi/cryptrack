@@ -9,8 +9,8 @@
 ✅ Use the latest stable version of React.
 ✅ Display a list of all cryptocurrencies in the userʼs portfolio.
 ✅ Each item should show the cryptocurrency name, symbol, quantity held, current price, and total value.
-🟡 Form to add or edit a holding with fields for cryptocurrency name, symbol, and quantity.
-🟡 Show detailed information about the cryptocurrency, including historical price charts.
+✅ Form to add or edit a holding with fields for cryptocurrency name, symbol, and quantity.
+✅ Show detailed information about the cryptocurrency, including historical price charts.
 ✅ Allow users to add a new cryptocurrency to their portfolio.
 ✅ Allow users to edit existing holdings.
 ✅ Allow users to delete holdings.
@@ -48,10 +48,10 @@
 
 ## Technologies used
 
-- Next.js/React
+- React + Next.js
 - Bootstrap
-- zustand
-- chart.js
+- Zustand
+- Chart.js + react-chartjs-2
 - CryptoCompare API
 
 ## Additional features

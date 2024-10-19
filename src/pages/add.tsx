@@ -80,7 +80,7 @@ const AddHolding = () => {
       <div className="container-fluid">
         <div
           className="card mx-auto border-0 shadow-sm mt-5"
-          style={{ width: '480px' }}
+          style={{ width: '480px', maxWidth: '100%' }}
         >
           <div className="card-body">
             <div className="d-flex flex-column align-items-center">
