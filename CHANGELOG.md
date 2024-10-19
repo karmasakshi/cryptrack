@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/karmasakshi/cryptrack/compare/v1.2.0...v1.3.0) (2024-10-19)
+
+
+### Features
+
+* **general:** update dependencies ([fafedba](https://github.com/karmasakshi/cryptrack/commit/fafedbae88ca8ac0b71130ecc5e8d4b3bf782dda))
+
 ## [1.2.0](https://github.com/karmasakshi/cryptrack/compare/v1.1.0...v1.2.0) (2024-10-18)
 
 
