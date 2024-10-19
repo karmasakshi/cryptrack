@@ -10,7 +10,7 @@ const Holdings = () => {
   const { portfolio, removeHolding } = usePortfolioStore();
   const defaultFilters = {
     searchKey: '',
-    sortKey: 'name',
+    sortKey: 'cryptocurrency.name',
     sortOrder: 'asc',
   };
 
@@ -26,15 +26,25 @@ const Holdings = () => {
       if (filters.sortOrder === 'asc') {
         if (filters.sortKey === 'cryptocurrency.symbol') {
           return a.cryptocurrency.symbol.localeCompare(b.cryptocurrency.symbol);
+        } else if (filters.sortKey === 'cryptocurrency.name') {
+          return a.cryptocurrency.name.localeCompare(b.cryptocurrency.name);
+        } else if (filters.sortKey === 'cryptocurrency.currentPrice') {
+          return a.cryptocurrency.currentPrice - b.cryptocurrency.currentPrice;
+        } else {
+          // @ts-expect-error @typescript-eslint/no-explicit-any
+          return a[filters.sortKey] - b[filters.sortKey];
         }
-        // @ts-expect-error @typescript-eslint/no-explicit-any
-        return a[filters.sortKey] - b[filters.sortKey];
       } else {
         if (filters.sortKey === 'cryptocurrency.symbol') {
           return b.cryptocurrency.symbol.localeCompare(a.cryptocurrency.symbol);
+        } else if (filters.sortKey === 'cryptocurrency.name') {
+          return b.cryptocurrency.name.localeCompare(a.cryptocurrency.name);
+        } else if (filters.sortKey === 'cryptocurrency.currentPrice') {
+          return b.cryptocurrency.currentPrice - a.cryptocurrency.currentPrice;
+        } else {
+          // @ts-expect-error @typescript-eslint/no-explicit-any
+          return b[filters.sortKey] - a[filters.sortKey];
         }
-        // @ts-expect-error @typescript-eslint/no-explicit-any
-        return b[filters.sortKey] - a[filters.sortKey];
       }
     });
 
