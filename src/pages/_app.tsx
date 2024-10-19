@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
+        <title>Cryptrack</title>
       </Head>
       <Layout>
         <Component {...pageProps} />

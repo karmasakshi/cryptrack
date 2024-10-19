@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <main className="container-fluid">{children}</main>
       <footer className="mt-4"></footer>
     </>

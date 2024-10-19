@@ -12,10 +12,13 @@ const PriceChart = ({ cryptocurrency }: { cryptocurrency: Cryptocurrency }) => {
 
   useEffect(() => {
     setLoading(true);
-    getHistoricalData(cryptocurrency.symbol, timeframe).then((response) => {
-      setHistoricalData(response.Data);
-      setLoading(false);
-    });
+    getHistoricalData(cryptocurrency.symbol, timeframe)
+      .then((response) => {
+        setHistoricalData(response.Data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [timeframe, cryptocurrency.symbol]);
 
   const chartData = {
