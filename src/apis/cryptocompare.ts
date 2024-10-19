@@ -11,38 +11,47 @@ const axiosInstance = axios.create({
   adapter: cache.adapter as AxiosAdapter,
 });
 
+const getHeaders = () => ({
+  headers: {
+    authorization: `Apikey ${API_KEY}`,
+  },
+});
+
 export const getCryptocurrencyPrice = async (symbol: string) => {
-  const response = await axiosInstance.get(
-    `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`,
-    {
-      headers: {
-        authorization: `Apikey ${API_KEY}`,
-      },
-    },
-  );
-  return response.data.USD;
+  try {
+    const response = await axiosInstance.get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`,
+      getHeaders(),
+    );
+    return response.data.USD;
+  } catch (error) {
+    console.error(`Failed to fetch cryptocurrency price for ${symbol}:`, error);
+    throw error;
+  }
 };
 
 export const getCryptocurrencyData = async (symbol: string) => {
-  const response = await axiosInstance.get(
-    `https://data-api.cryptocompare.com/asset/v1/data/by/symbol?asset_symbol=${symbol}`,
-    {
-      headers: {
-        authorization: `Apikey ${API_KEY}`,
-      },
-    },
-  );
-  return response.data.Data;
+  try {
+    const response = await axiosInstance.get(
+      `https://data-api.cryptocompare.com/asset/v1/data/by/symbol?asset_symbol=${symbol}`,
+      getHeaders(),
+    );
+    return response.data.Data;
+  } catch (error) {
+    console.error(`Failed to fetch cryptocurrency data for ${symbol}:`, error);
+    throw error;
+  }
 };
 
 export const getHistoricalData = async (symbol: string, days: number) => {
-  const response = await axiosInstance.get(
-    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol}&tsym=USD&limit=${days}`,
-    {
-      headers: {
-        authorization: `Apikey ${API_KEY}`,
-      },
-    },
-  );
-  return response.data.Data;
+  try {
+    const response = await axiosInstance.get(
+      `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol}&tsym=USD&limit=${days}`,
+      getHeaders(),
+    );
+    return response.data.Data;
+  } catch (error) {
+    console.error(`Failed to fetch historical data for ${symbol}:`, error);
+    throw error;
+  }
 };

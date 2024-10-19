@@ -96,7 +96,7 @@ const AddHolding = () => {
             <form className="mt-4" onSubmit={handleAddHolding}>
               {errors.length > 0 && (
                 <div className="alert alert-danger">
-                  <ul className="m-0">
+                  <ul className="m-0 list-unstyled">
                     {errors.map((error, index) => (
                       <li key={index}>{error}</li>
                     ))}
