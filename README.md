@@ -41,12 +41,13 @@ https://cryptrack-black.vercel.app
 
 ## Running the app
 
-Visit https://cryptrack-black.vercel.app, or:
+Visit https://cryptrack-black.vercel.app, or on a machine with Node.js v20/v22 installed:
 
-1. Clone the repository
+1. Download or clone the repository
 2. Run `npm install`
-3. Run `npm run dev`
-4. Open http://localhost:3000
+3. Make a copy of .env and name it .env.local, set the supplied key
+4. Run `npm run dev`
+5. Open http://localhost:3000
 
 ## Technologies used
 
