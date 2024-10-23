@@ -22,34 +22,34 @@ const PriceChart = ({ cryptocurrency }: { cryptocurrency: Cryptocurrency }) => {
   }, [timeframe, cryptocurrency.symbol]);
 
   const chartData = {
-    labels: historicalData.map((data) =>
+    labels: historicalData?.map((data) =>
       new Date(data.time * 1000).toLocaleDateString(),
     ),
     datasets: [
       {
         label: 'Close Price',
-        data: historicalData.map((data) => data.close),
+        data: historicalData?.map((data) => data.close),
         borderColor: 'rgba(0, 123, 255, 1)',
         backgroundColor: 'rgba(0, 123, 255, 0.2)',
         fill: true,
       },
       {
         label: 'High Price',
-        data: historicalData.map((data) => data.high),
+        data: historicalData?.map((data) => data.high),
         borderColor: 'rgba(40, 167, 69, 1)',
         backgroundColor: 'rgba(40, 167, 69, 0.2)',
         fill: false,
       },
       {
         label: 'Low Price',
-        data: historicalData.map((data) => data.low),
+        data: historicalData?.map((data) => data.low),
         borderColor: 'rgba(255, 193, 7, 1)',
         backgroundColor: 'rgba(255, 193, 7, 0.2)',
         fill: false,
       },
       {
         label: 'Open Price',
-        data: historicalData.map((data) => data.open),
+        data: historicalData?.map((data) => data.open),
         borderColor: 'rgba(108, 117, 125, 1)',
         backgroundColor: 'rgba(108, 117, 125, 0.2)',
         fill: false,

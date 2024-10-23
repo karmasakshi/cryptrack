@@ -31,29 +31,41 @@ const HoldingCard = ({
           {holding.cryptocurrency.name} (
           {holding.cryptocurrency.symbol.toUpperCase()})
         </h5>
-        <p className="m-0">
-          <strong>Current Price:</strong>
-          <pre className="d-inline">
-            {' '}
-            ${formatAmount(holding.cryptocurrency.currentPrice)}
-          </pre>
-        </p>
-        <p className="m-0">
-          <strong>Quantity:</strong>
-          <pre className="d-inline"> {holding.quantity}</pre>
-        </p>
-        <p className="m-0">
-          <strong>Average Cost:</strong>
-          <pre className="d-inline"> {formatAmount(holding.averageCost)}</pre>
-        </p>
-        <p className="m-0">
-          <strong>Value:</strong>
-          <pre className="d-inline"> ${formatAmount(holding.value)}</pre>
-        </p>
-        <p className={`m-0 ${profit >= 0 ? 'text-success' : 'text-danger'}`}>
-          <strong>Profit:</strong>
-          <pre className="d-inline"> ${formatAmount(profit)}</pre>
-        </p>
+        <div>
+          <span className="m-0">
+            <strong>Current Price:</strong>
+            <pre className="d-inline">
+              {' '}
+              ${formatAmount(holding.cryptocurrency.currentPrice)}
+            </pre>
+          </span>
+        </div>
+        <div>
+          <span className="m-0">
+            <strong>Quantity:</strong>
+            <pre className="d-inline"> {holding.quantity}</pre>
+          </span>
+        </div>
+        <div>
+          <span className="m-0">
+            <strong>Average Cost:</strong>
+            <pre className="d-inline"> {formatAmount(holding.averageCost)}</pre>
+          </span>
+        </div>
+        <div>
+          <span className="m-0">
+            <strong>Value:</strong>
+            <pre className="d-inline"> ${formatAmount(holding.value)}</pre>
+          </span>
+        </div>
+        <div>
+          <span
+            className={`m-0 ${profit >= 0 ? 'text-success' : 'text-danger'}`}
+          >
+            <strong>Profit:</strong>
+            <pre className="d-inline"> ${formatAmount(profit)}</pre>
+          </span>
+        </div>
         <div className="mt-4 d-flex gap-2">
           <Link
             href={`/holding/${holding.cryptocurrency.symbol}`}

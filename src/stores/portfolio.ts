@@ -68,11 +68,17 @@ export const usePortfolioStore = create<PortfolioStore>()(
 
       updateHolding: (updatedHolding) =>
         set((state) => {
-          const newHoldings = state.portfolio.holdings.map((h) =>
-            h.cryptocurrency.symbol === updatedHolding.cryptocurrency.symbol
-              ? { ...h, ...updatedHolding }
-              : h,
-          );
+          const newHoldings = state.portfolio.holdings.map((h) => {
+            if (
+              h.cryptocurrency.symbol === updatedHolding.cryptocurrency.symbol
+            ) {
+              const updatedQuantity = updatedHolding.quantity;
+              const updatedValue =
+                updatedQuantity * h.cryptocurrency.currentPrice;
+              return { ...h, ...updatedHolding, value: updatedValue };
+            }
+            return h;
+          });
           const newValue = newHoldings.reduce((total, h) => total + h.value, 0);
           return { portfolio: { holdings: newHoldings, value: newValue } };
         }),
